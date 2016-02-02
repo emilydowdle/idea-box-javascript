@@ -18,6 +18,7 @@ group :development, :test do
   gem 'pry'
   gem 'minitest-rails'
   gem 'simplecov'
+  gem 'capybara'
 end
 
 group :development do

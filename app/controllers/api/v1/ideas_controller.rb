@@ -10,15 +10,21 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def create
-    drug = Drug.new(strong_params)
-    drug.save
-    respond_with Idea.all
+    idea = Idea.new(strong_params)
+    idea.save
+    redirect_to api_v1_ideas_path
+  end
+
+  def update
+    idea = find_idea
+    idea.update(strong_params)
+    redirect_to api_v1_ideas_path
   end
 
   def destroy
     idea = find_idea
-    drug.destroy
-    respond_with Idea.all
+    idea.destroy
+    redirect_to api_v1_ideas_path
   end
 
   private
@@ -28,6 +34,8 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def find_idea
-    Idea.find(strong_params)
+    Idea.find(strong_params[:id])
+    # rescue ActiveRecord::RecordNotFound
+
   end
 end
