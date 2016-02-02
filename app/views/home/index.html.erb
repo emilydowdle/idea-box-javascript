@@ -1,4 +1,10 @@
 <div id="idea-index" class="margin-top-80">
+  <div class="">
+    Title: <input class="" type="text" id="idea-title">
+    Body: <input class="" type="text" id="idea-body">
+  </div>
+  <input class="" id="create-idea" type="button" name="submit" value="Create Idea">
+
   <h1>Your Ideas</h1>
   <div id="idea-info" class="clearfix">
     <!-- <% @ideas.each do |idea| %>
@@ -9,4 +15,5 @@
       <%= button_to "Delete", api_v1_idea_path(idea), method: 'delete' %>
     <% end %> -->
   </div>
+
 </div>

@@ -12,7 +12,7 @@ class Api::V1::IdeasController < ApplicationController
   def create
     idea = Idea.new(strong_params)
     idea.save
-    redirect_to api_v1_ideas_path
+    respond_with :api, :v1, idea
   end
 
   def update
