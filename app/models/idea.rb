@@ -1,7 +1,11 @@
 class Idea < ActiveRecord::Base
   validates_presence_of :title
-  
+
   enum quality: %w(swill plausible genius)
+
+  def self.order
+    all.order(created_at: :desc)
+  end
 
   def cap_quality
     quality.capitalize
