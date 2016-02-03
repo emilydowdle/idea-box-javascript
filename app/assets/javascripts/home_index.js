@@ -12,7 +12,7 @@ function renderIdea(idea) {
   $("#idea-info").append(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
-    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.title + "</h3></span>" +
+    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + idea.body + "</p>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
     "<button id='increase-idea' name='increase-button' class=''> + </button>" +
@@ -23,7 +23,6 @@ function renderIdea(idea) {
 }
 
 function fetchIdeas() {
-  // debugger
   var newestItemId = parseInt($(".idea").last().attr("data-id"))
   var ideaUri = 'http://localhost:3000/api/v1/ideas'
 
@@ -134,29 +133,29 @@ function updateQuality(idea, quality){
   $(idea).attr('data-quality', quality);
 }
 
-function updateTitleDirect() {
+function updateTitle() {
   $('#idea-info').delegate('.idea-title', 'keyup', function (event) {
     if(event.keyCode == 13) {
       event.preventDefault();
-      var $updatedTitle = event.currentTarget.textContent
       var $idea = $(this).closest('.idea')
+      var $updatedTitle = event.currentTarget.textContent
       var ideaParams = {
         title: $updatedTitle
       }
-    }
 
-    $.ajax({
-      type: 'PUT',
-      url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
-      data: ideaParams,
-      success: function(updatedIdea) {
-        $(event.target).blur();
-        replaceTitle($idea, updatedIdea.title);
-      },
-      error: function(xhr) {
-        console.log("A title is required for your idea.")
-      }
-    })
+      $.ajax({
+        type: 'PUT',
+        url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+        data: ideaParams,
+        success: function(updatedIdea) {
+          $(event.target).blur();
+          replaceTitle($idea, updatedIdea.title);
+        },
+        error: function(xhr) {
+          console.log("A title is required for your idea.")
+        }
+      })
+    }
   })
 }
 
@@ -164,7 +163,7 @@ function replaceTitle(idea, title) {
   $(idea).find('.idea-title').html(title)
 }
 
-function updateBodyDirect() {
+function updateBody() {
   // $('#idea-info').delegate('.idea-title', 'click', function (event) {
   $('#idea-info').delegate('.idea-summary', 'keyup', function (event) {
     if(event.keyCode == 13) {

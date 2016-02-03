@@ -76,6 +76,15 @@ class Api::V1::IdeasControllerTest < ActionController::TestCase
     assert_equal (starting_count + 1), Idea.count
   end
 
+  test "#create does not add a record without title" do
+    starting_count = Idea.count
+
+    get :create, format: :json, symbolize_names: true, body: "Description"
+
+    assert_response :success
+    assert_equal starting_count, Idea.count
+  end
+
   test "#create adds a record with the correct info" do
     starting_count = Idea.count
 
@@ -89,7 +98,7 @@ class Api::V1::IdeasControllerTest < ActionController::TestCase
   test "#update responds to json" do
     get :update, format: :json, symbolize_names: true, id: Idea.last.id, title: "Title", body: "Description"
 
-    assert_response :redirect
+    assert_response :success
   end
 
   test "#update edits a record" do
