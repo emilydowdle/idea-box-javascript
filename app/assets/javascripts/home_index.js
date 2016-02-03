@@ -9,7 +9,7 @@ $(document).ready(function() {
 })
 
 function renderIdea(idea) {
-  $("#idea-info").append(
+  $("#idea-info").prepend(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
@@ -23,15 +23,15 @@ function renderIdea(idea) {
 }
 
 function fetchIdeas() {
-  var newestItemId = parseInt($(".idea").last().attr("data-id"))
+  // var newestItemId = parseInt($(".idea").last().attr("data-id"))
   var ideaUri = 'http://localhost:3000/api/v1/ideas'
 
   $.getJSON(ideaUri, function(data) {
     $('#idea-info').html('');
     $.each(data, function(key, val) {
-      if (isNaN(newestItemId) || val.id > newestItemId) {
+      // if (isNaN(newestItemId) || val.id > newestItemId) {
         renderIdea(val)
-      }
+      // }
     })
   })
 }

@@ -2,7 +2,7 @@ class Api::V1::IdeasController < ApplicationController
   respond_to :json
 
   def index
-    ideas = Idea.all.order(:updated_at)
+    ideas = Idea.all.order(updated_at: :desc)
     respond_with ideas
   end
 
