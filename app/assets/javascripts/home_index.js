@@ -1,6 +1,7 @@
 $(document).ready(function() {
   fetchIdeas()
   createIdea()
+  deleteIdea()
   increaseQuality()
   decreaseQuality()
   updateTitle()
@@ -71,8 +72,7 @@ function createIdea() {
 }
 
 function deleteIdea() {
-  $('#delete-idea').on('click', function() {
-    debugger
+  $("#idea-info").delegate("#delete-idea", "click", function() {
     var $idea = $(this).closest(".idea")
 
     $.ajax({
@@ -146,6 +146,8 @@ function updateQuality(idea, quality){
   $(idea).find('.idea-quality').html('<strong>Quality: </strong>' + quality);
   $(idea).attr('data-quality', quality);
 }
+
+function editButton ()
 
 function updateTitle() {
   $('#idea-info').delegate('.idea-title', 'keyup', function (event) {
