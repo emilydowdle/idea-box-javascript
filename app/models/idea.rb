@@ -1,4 +1,6 @@
 class Idea < ActiveRecord::Base
+  validates_presence_of :title
+  
   enum quality: %w(swill plausible genius)
 
   def cap_quality
@@ -12,28 +14,4 @@ class Idea < ActiveRecord::Base
       record
     end
   end
-
-  # def assess_quality(data)
-  #   if data[:direction] == "Increase"
-  #     increase_quality
-  #   else
-  #     decrease_quality
-  #   end
-  # end
-  #
-  # def increase_quality
-  #   if swill?
-  #     update(quality: 1)
-  #   else
-  #     update(quality: 2)
-  #   end
-  # end
-  #
-  # def decrease_quality
-  #   if genius?
-  #     update(quality: 1)
-  #   else
-  #     update(quality: 0)
-  #   end
-  # end
 end
