@@ -9,7 +9,7 @@ $(document).ready(function() {
 })
 
 function renderIdea(idea) {
-  $("#idea-info").prepend(
+  $("#idea-info").append(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
