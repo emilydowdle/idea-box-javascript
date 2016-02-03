@@ -65,6 +65,9 @@ function createIdea() {
         console.log(xhr.responseText)
       }
     })
+    document.getElementById('idea-title').value = ""
+    document.getElementById('idea-body').value = ""
+
   })
 }
 
