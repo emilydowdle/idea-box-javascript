@@ -9,11 +9,11 @@ $(document).ready(function() {
 })
 
 function renderIdea(idea) {
-  $("#idea-info").append(
+  $("#idea-info").prepend(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
-    "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + idea.body + "</p>" +
+    "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
     "<button id='increase-idea' name='increase-button' class=''> + </button>" +
     "<button id='decrease-idea' name='decrease-button' class=''> - </button></div>" +
@@ -23,17 +23,28 @@ function renderIdea(idea) {
 }
 
 function fetchIdeas() {
-  // var newestItemId = parseInt($(".idea").last().attr("data-id"))
   var ideaUri = 'http://localhost:3000/api/v1/ideas'
 
   $.getJSON(ideaUri, function(data) {
     $('#idea-info').html('');
     $.each(data, function(key, val) {
-      // if (isNaN(newestItemId) || val.id > newestItemId) {
-        renderIdea(val)
-      // }
+      renderIdea(val)
     })
   })
+}
+
+function truncateBody(body) {
+  if (body == null) {
+    return body
+  }
+  else if (body.length > 100) {
+    var hundredWords = body.slice(0,100)
+    var lastWord = body.slice(100).split(" ")[0]
+    return hundredWords + lastWord + '...'
+  }
+  else {
+    return body
+  }
 }
 
 function createIdea() {

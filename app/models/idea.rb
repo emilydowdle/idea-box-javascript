@@ -4,7 +4,7 @@ class Idea < ActiveRecord::Base
   enum quality: %w(swill plausible genius)
 
   def self.order
-    all.order(created_at: :desc)
+    all.order(created_at: :asc)
   end
 
   def cap_quality
