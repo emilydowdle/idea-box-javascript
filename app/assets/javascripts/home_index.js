@@ -1,7 +1,6 @@
 $(document).ready(function() {
   fetchIdeas()
   createIdea()
-  deleteIdea()
   increaseQuality()
   decreaseQuality()
   updateTitle()
@@ -17,8 +16,8 @@ function renderIdea(idea) {
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
     "<button id='increase-idea' name='increase-button' class=''> + </button>" +
     "<button id='decrease-idea' name='decrease-button' class=''> - </button></div>" +
-    "</br><button id='edit-idea' name='edit-button' class=''>Edit</button></div>" +
-    "</br><button id='delete-idea' name='delete-button' class=''>Delete</button></div>"
+    "<button id='edit-idea' name='edit-button' class=''>Edit</button>" +
+    "<button id='delete-idea' name='delete-button' class=''>Delete</button></div></div>"
   )
 }
 
@@ -72,7 +71,8 @@ function createIdea() {
 }
 
 function deleteIdea() {
-  $('#idea-info').delegate('#delete-idea', 'click', function() {
+  $('#delete-idea').on('click', function() {
+    debugger
     var $idea = $(this).closest(".idea")
 
     $.ajax({
