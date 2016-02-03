@@ -65,7 +65,7 @@ class Api::V1::IdeasControllerTest < ActionController::TestCase
   test "#create responds to json" do
     get :create, format: :json, symbolize_names: true, title: "Title", body: "Description"
 
-    assert_response :redirect
+    assert_response :success
   end
 
   test "#create adds a record" do
@@ -115,7 +115,7 @@ class Api::V1::IdeasControllerTest < ActionController::TestCase
   test "#destroy responds to json" do
     get :destroy, format: :json, symbolize_names: true, id: Idea.last.id
 
-    assert_response :redirect
+    assert_response :success
   end
 
   test "#destroy removes a record" do
