@@ -13,7 +13,7 @@ function renderIdea(idea) {
   $("#idea-info").prepend(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
-    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
+    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
     "<button class='save' name='save-button' class=''>Save</button>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
@@ -170,7 +170,9 @@ function sendPut(idea, data, event) {
     url: "/api/v1/ideas/" + idea.attr('data-id') + "",
     data: data,
     success: function(updatedIdea) {
-      $(event.target).blur();
+      if (event != null) {
+        $(event.target).blur()
+      }
       replaceTitle(idea, updatedIdea.title);
     },
     error: function(xhr) {
@@ -223,10 +225,30 @@ function editButton() {
     // $(this).siblings('.save').show()
     var $idea = $(this).closest('.idea')
     $idea.addClass('editing')
-    $(this).siblings('.save').click(function() {
-      $idea.removeClass('editing')
-    })
+
   //  $(this).replaceWith(input);
   //  input.select();
   })
+  $('.save').click(function() {
+    var $idea = $(this).closest('.idea')
+    $idea.removeClass('editing')
+    var updatedTitle = $idea.find('.idea-title').text()
+    var updatedBody = $idea.find('.idea-summary').text()
+    var ideaParams = {
+      title: updatedTitle,
+      body: updatedBody
+    }
+    sendPut($idea, ideaParams)
+  })
 }
+
+
+//
+
+
+// var $idea = $(this).closest('.idea')
+// var $updatedTitle = event.currentTarget.textContent
+// var ideaParams = {
+//   title: $updatedTitle
+// }
+// sendPut($idea, ideaParams, event)
