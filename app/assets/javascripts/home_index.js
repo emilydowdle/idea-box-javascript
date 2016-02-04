@@ -221,14 +221,8 @@ function ideaFilter () {
 
 function editButton() {
   $('.edit-idea').click(function() {
-    // console.log($(this))
-    // console.log($(this).sibling('.save'))
-    // $(this).siblings('.save').show()
     var $idea = $(this).closest('.idea')
     $idea.addClass('editing')
-
-  //  $(this).replaceWith(input);
-  //  input.select();
   })
   $('.save').click(function() {
     var $idea = $(this).closest('.idea')
@@ -242,14 +236,3 @@ function editButton() {
     sendPut($idea, ideaParams)
   })
 }
-
-
-//
-
-
-// var $idea = $(this).closest('.idea')
-// var $updatedTitle = event.currentTarget.textContent
-// var ideaParams = {
-//   title: $updatedTitle
-// }
-// sendPut($idea, ideaParams, event)
