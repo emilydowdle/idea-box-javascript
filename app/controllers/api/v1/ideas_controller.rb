@@ -28,7 +28,4 @@ class Api::V1::IdeasController < ApplicationController
     respond_with :api, :v1, idea
   end
 
-  private
-
-
 end
