@@ -148,7 +148,7 @@ function updateQuality(idea, quality){
 }
 
 // function editButton() {
-//   $('#edit-button').click(function(e) {
+//   $('.edit-idea').on('click', function() {
 //     debugger
 //   })
 // }
@@ -184,7 +184,6 @@ function replaceTitle(idea, title) {
 }
 
 function updateBody() {
-  // $('#idea-info').delegate('.idea-title', 'click', function (event) {
   $('#idea-info').delegate('.idea-summary', 'keyup', function (event) {
     if(event.keyCode == 13) {
       event.preventDefault();
@@ -213,3 +212,22 @@ function updateBody() {
 function replaceBody(idea, body) {
   $(idea).find('.idea-summary').html(body)
 }
+
+function ideaFilter () {
+  var $ideas = $('#idea-info.idea-title');
+
+  $('#drug_filter_by_name').keyup('change', function () {
+    var currentDrug = this.value;
+    $drugs.each(function (index, drug) {
+      $drug = $(drug);
+      $drugName = $(drug).children('h5');
+      if ($drugName.data('name').includes(currentDrug)) {
+        $drug.show();
+      }
+      else {
+        $drug.hide();
+      }
+    });
+  });
+
+});
