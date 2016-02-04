@@ -15,6 +15,7 @@ function renderIdea(idea) {
     "' data-title='" + idea.title + "' data-body='" + idea.body +
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
+    "<button class='save' name='save-button' class=''>Save</button>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
     "<button class='increase-idea' name='increase-button' class=''> + </button>" +
     "<button class='decrease-idea' name='decrease-button' class=''> - </button></div>" +
@@ -31,6 +32,7 @@ function fetchIdeas() {
     $.each(data, function(key, val) {
       renderIdea(val)
     })
+    editButton()
   })
 }
 
@@ -148,12 +150,6 @@ function updateQuality(idea, quality){
   $(idea).attr('data-quality', quality);
 }
 
-// function editButton() {
-//   $('.edit-idea').on('click', function() {
-//     debugger
-//   })
-// }
-
 function updateTitle() {
   $('#idea-info').delegate('.idea-title', 'keyup', function (event) {
     if(event.keyCode == 13) {
@@ -226,5 +222,16 @@ function ideaFilter () {
         $idea.hide()
       }
     })
+  })
+}
+
+function editButton() {
+  $('.edit-idea').click(function() {
+    $(this).closest('.save').show()
+    var $idea = $(this).closest('.idea')
+    var input = $("<input>", { val: $(this).text(),
+                               type: "text" });
+  //  $(this).replaceWith(input);
+  //  input.select();
   })
 }
