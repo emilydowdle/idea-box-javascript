@@ -1,3 +1,17 @@
 .save {
   display: none;
 }
+
+.editing p.idea-summary,
+.editing h3 {
+  border: 1px solid #bfbfbf;
+}
+
+.editing p.idea-summary:focus,
+.editing h3:focus {
+  border: none;
+}
+
+.editing .save {
+  display: block;
+}

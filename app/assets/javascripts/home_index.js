@@ -159,19 +159,22 @@ function updateTitle() {
       var ideaParams = {
         title: $updatedTitle
       }
+      sendPut($idea, ideaParams, event)
+    }
+  })
+}
 
-      $.ajax({
-        type: 'PUT',
-        url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
-        data: ideaParams,
-        success: function(updatedIdea) {
-          $(event.target).blur();
-          replaceTitle($idea, updatedIdea.title);
-        },
-        error: function(xhr) {
-          console.log("A title is required for your idea.")
-        }
-      })
+function sendPut(idea, data, event) {
+  $.ajax({
+    type: 'PUT',
+    url: "/api/v1/ideas/" + idea.attr('data-id') + "",
+    data: data,
+    success: function(updatedIdea) {
+      $(event.target).blur();
+      replaceTitle(idea, updatedIdea.title);
+    },
+    error: function(xhr) {
+      console.log("A title is required for your idea.")
     }
   })
 }
@@ -189,20 +192,8 @@ function updateBody() {
       var ideaParams = {
         body: $updatedBody
       }
+      sendPut($idea, ideaParams, event)
     }
-
-    $.ajax({
-      type: 'PUT',
-      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
-      data: ideaParams,
-      success: function(updatedIdea) {
-        $(event.target).blur();
-        replaceBody($idea, updatedIdea.body);
-      },
-      error: function(xhr) {
-        console.log(xhr.responseText)
-      }
-    })
   })
 }
 
@@ -227,10 +218,14 @@ function ideaFilter () {
 
 function editButton() {
   $('.edit-idea').click(function() {
-    $(this).closest('.save').show()
+    // console.log($(this))
+    // console.log($(this).sibling('.save'))
+    // $(this).siblings('.save').show()
     var $idea = $(this).closest('.idea')
-    var input = $("<input>", { val: $(this).text(),
-                               type: "text" });
+    $idea.addClass('editing')
+    $(this).siblings('.save').click(function() {
+      $idea.removeClass('editing')
+    })
   //  $(this).replaceWith(input);
   //  input.select();
   })
