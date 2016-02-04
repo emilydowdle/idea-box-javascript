@@ -15,17 +15,10 @@ function renderIdea(idea) {
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
-<<<<<<< HEAD
-    "<button id='increase-idea' name='increase-button' class=''> + </button>" +
-    "<button id='decrease-idea' name='decrease-button' class=''> - </button></div>" +
-    "<button id='edit-idea' name='edit-button' class=''>Edit</button></div>" +
-    "<button id='delete-idea' name='delete-button' class=''>Delete</button></div>"
-=======
     "<button class='increase-idea' name='increase-button' class=''> + </button>" +
     "<button class='decrease-idea' name='decrease-button' class=''> - </button></div>" +
     "<button class='edit-idea' name='edit-button' class=''>Edit</button>" +
     "<button class='delete-idea' name='delete-button' class=''>Delete</button></div></div>"
->>>>>>> refactor-current-features
   )
 }
 
