@@ -6,6 +6,7 @@ $(document).ready(function() {
   decreaseQuality()
   updateTitle()
   updateBody()
+  ideaFilter()
 })
 
 function renderIdea(idea) {
@@ -214,20 +215,33 @@ function replaceBody(idea, body) {
 }
 
 function ideaFilter () {
-  var $ideas = $('#idea-info.idea-title');
-
-  $('#drug_filter_by_name').keyup('change', function () {
-    var currentDrug = this.value;
-    $drugs.each(function (index, drug) {
-      $drug = $(drug);
-      $drugName = $(drug).children('h5');
-      if ($drugName.data('name').includes(currentDrug)) {
-        $drug.show();
+  $('#idea_filter_title').keyup('change', function () {
+    var currentIdea = this.value
+    $('.idea').each(function (index, idea) {
+      $idea = $(idea);
+      $ideaTitle = $(idea).data('title')
+      if ($ideaTitle.includes(currentIdea)) {
+        $idea.show()
+      } else {
+        $idea.hide()
       }
-      else {
-        $drug.hide();
-      }
-    });
-  });
+    })
+  })
+  // data-username="<%= user.username %>">
 
-});
+  // $('#idea_filter_title').keyup('change', function () {
+  //   debugger
+  //   var currentDrug = this.value;
+  //   $drugs.each(function (index, drug) {
+  //     $drug = $(drug);
+  //     $drugName = $(drug).children('h5');
+  //     if ($drugName.data('name').includes(currentDrug)) {
+  //       $drug.show();
+  //     }
+  //     else {
+  //       $drug.hide();
+  //     }
+  //   });
+  // });
+
+}
