@@ -121,6 +121,18 @@ class Api::V1::IdeasControllerTest < ActionController::TestCase
     assert_equal starting_count, Idea.count
   end
 
+  test "#update saves old title correctly" do
+    original_title = Idea.last.title
+    original_body = Idea.last.body
+
+    get :update, format: :json, symbolize_names: true, id: Idea.last.id, body: "New Description"
+
+    assert_response :success
+    assert_equal original_title, Idea.last.title
+    refute_equal original_body, Idea.last.body
+    assert_equal Idea.last.body, "New Description"
+  end
+
   test "#destroy responds to json" do
     get :destroy, format: :json, symbolize_names: true, id: Idea.last.id
 
