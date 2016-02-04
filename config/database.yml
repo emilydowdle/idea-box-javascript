@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: javascript_idea_box_production
-  username: javascript_idea_box
+  username: emilydowdle1
   password: <%= ENV['JAVASCRIPT_IDEA_BOX_DATABASE_PASSWORD'] %>
