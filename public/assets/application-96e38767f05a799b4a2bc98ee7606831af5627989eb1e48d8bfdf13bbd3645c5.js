@@ -12559,7 +12559,8 @@ function ideaFilter () {
     $('.idea').each(function (index, idea) {
       $idea = $(idea);
       $ideaTitle = $(idea).data('title')
-      if ($ideaTitle.includes(currentIdea)) {
+      $ideaBody = $(idea).data('body')
+      if ($ideaTitle.includes(currentIdea) || $ideaBody.includes(currentIdea)) {
         $idea.show()
       } else {
         $idea.hide()
