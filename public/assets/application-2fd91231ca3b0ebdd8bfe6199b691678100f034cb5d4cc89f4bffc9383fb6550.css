@@ -1,3 +1,25 @@
+.save {
+  display: none;
+}
+
+.editing p.idea-summary,
+.editing h3 {
+  border: 1px solid #bfbfbf;
+}
+
+.editing p.idea-summary:focus,
+.editing h3:focus {
+  border: none;
+}
+
+.editing .save {
+  display: block;
+}
+
+.idea {
+  margin: 80px 0;
+  width: 400px;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

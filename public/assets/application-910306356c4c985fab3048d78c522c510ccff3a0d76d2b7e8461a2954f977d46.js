@@ -12356,14 +12356,16 @@ $(document).ready(function() {
   decreaseQuality()
   updateTitle()
   updateBody()
+  ideaFilter()
 })
 
 function renderIdea(idea) {
   $("#idea-info").prepend(
     "<div class='idea' data-id='" + idea.id + "' data-quality='" + idea.quality +
     "' data-title='" + idea.title + "' data-body='" + idea.body +
-    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
+    "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
+    "<button class='save' name='save-button' class=''>Save</button>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
     "<button class='increase-idea' name='increase-button' class=''> + </button>" +
     "<button class='decrease-idea' name='decrease-button' class=''> - </button></div>" +
@@ -12380,6 +12382,7 @@ function fetchIdeas() {
     $.each(data, function(key, val) {
       renderIdea(val)
     })
+    editButton()
   })
 }
 
@@ -12497,12 +12500,6 @@ function updateQuality(idea, quality){
   $(idea).attr('data-quality', quality);
 }
 
-// function editButton() {
-//   $('#edit-button').click(function(e) {
-//     debugger
-//   })
-// }
-
 function updateTitle() {
   $('#idea-info').delegate('.idea-title', 'keyup', function (event) {
     if(event.keyCode == 13) {
@@ -12512,19 +12509,24 @@ function updateTitle() {
       var ideaParams = {
         title: $updatedTitle
       }
+      sendPut($idea, ideaParams, event)
+    }
+  })
+}
 
-      $.ajax({
-        type: 'PUT',
-        url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
-        data: ideaParams,
-        success: function(updatedIdea) {
-          $(event.target).blur();
-          replaceTitle($idea, updatedIdea.title);
-        },
-        error: function(xhr) {
-          console.log("A title is required for your idea.")
-        }
-      })
+function sendPut(idea, data, event) {
+  $.ajax({
+    type: 'PUT',
+    url: "/api/v1/ideas/" + idea.attr('data-id') + "",
+    data: data,
+    success: function(updatedIdea) {
+      if (event != null) {
+        $(event.target).blur()
+      }
+      replaceTitle(idea, updatedIdea.title);
+    },
+    error: function(xhr) {
+      console.log("A title is required for your idea.")
     }
   })
 }
@@ -12534,7 +12536,6 @@ function replaceTitle(idea, title) {
 }
 
 function updateBody() {
-  // $('#idea-info').delegate('.idea-title', 'click', function (event) {
   $('#idea-info').delegate('.idea-summary', 'keyup', function (event) {
     if(event.keyCode == 13) {
       event.preventDefault();
@@ -12543,26 +12544,64 @@ function updateBody() {
       var ideaParams = {
         body: $updatedBody
       }
+      sendPut($idea, ideaParams, event)
     }
-
-    $.ajax({
-      type: 'PUT',
-      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
-      data: ideaParams,
-      success: function(updatedIdea) {
-        $(event.target).blur();
-        replaceBody($idea, updatedIdea.body);
-      },
-      error: function(xhr) {
-        console.log(xhr.responseText)
-      }
-    })
   })
 }
 
 function replaceBody(idea, body) {
   $(idea).find('.idea-summary').html(body)
 }
+
+function ideaFilter () {
+  $('#idea_filter_title').keyup('change', function () {
+    var currentIdea = this.value
+    $('.idea').each(function (index, idea) {
+      $idea = $(idea);
+      $ideaTitle = $(idea).data('title')
+      if ($ideaTitle.includes(currentIdea)) {
+        $idea.show()
+      } else {
+        $idea.hide()
+      }
+    })
+  })
+}
+
+function editButton() {
+  $('.edit-idea').click(function() {
+    // console.log($(this))
+    // console.log($(this).sibling('.save'))
+    // $(this).siblings('.save').show()
+    var $idea = $(this).closest('.idea')
+    $idea.addClass('editing')
+
+  //  $(this).replaceWith(input);
+  //  input.select();
+  })
+  $('.save').click(function() {
+    var $idea = $(this).closest('.idea')
+    $idea.removeClass('editing')
+    var updatedTitle = $idea.find('.idea-title').text()
+    var updatedBody = $idea.find('.idea-summary').text()
+    var ideaParams = {
+      title: updatedTitle,
+      body: updatedBody
+    }
+    sendPut($idea, ideaParams)
+  })
+}
+
+
+//
+
+
+// var $idea = $(this).closest('.idea')
+// var $updatedTitle = event.currentTarget.textContent
+// var ideaParams = {
+//   title: $updatedTitle
+// }
+// sendPut($idea, ideaParams, event)
 ;
 (function() {
 
