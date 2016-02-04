@@ -15,10 +15,10 @@ function renderIdea(idea) {
     "'><span class='title-span'><h3 contentEditable='true' class='idea-title'>" + idea.id + idea.title + "</h3></span>" +
     "<span><strong>Summary: </strong></span><p contentEditable='true' class='idea-summary'>" + truncateBody(idea.body) + "</p>" +
     "<div><p class='idea-quality'><strong>Quality: </strong>" + idea.quality + "</p>" +
-    "<button id='increase-idea' name='increase-button' class=''> + </button>" +
-    "<button id='decrease-idea' name='decrease-button' class=''> - </button></div>" +
-    "<button id='edit-idea' name='edit-button' class=''>Edit</button>" +
-    "<button id='delete-idea' name='delete-button' class=''>Delete</button></div></div>"
+    "<button class='increase-idea' name='increase-button' class=''> + </button>" +
+    "<button class='decrease-idea' name='decrease-button' class=''> - </button></div>" +
+    "<button class='edit-idea' name='edit-button' class=''>Edit</button>" +
+    "<button class='delete-idea' name='delete-button' class=''>Delete</button></div></div>"
   )
 }
 
@@ -72,7 +72,7 @@ function createIdea() {
 }
 
 function deleteIdea() {
-  $("#idea-info").delegate("#delete-idea", "click", function() {
+  $("#idea-info").delegate(".delete-idea", "click", function() {
     var $idea = $(this).closest(".idea")
 
     $.ajax({
@@ -89,7 +89,7 @@ function deleteIdea() {
 }
 
 function increaseQuality() {
-  $('#idea-info').delegate('#increase-idea', 'click', function() {
+  $('#idea-info').delegate('.increase-idea', 'click', function() {
     var $idea = $(this).closest(".idea")
     var quality = $idea.attr('data-quality')
     var nextQuality = {
@@ -116,7 +116,7 @@ function increaseQuality() {
 }
 
 function decreaseQuality() {
-  $('#idea-info').delegate('#decrease-idea', 'click', function() {
+  $('#idea-info').delegate('.decrease-idea', 'click', function() {
     var $idea = $(this).closest(".idea")
     var quality = $idea.attr('data-quality')
     var nextQuality = {
@@ -147,7 +147,11 @@ function updateQuality(idea, quality){
   $(idea).attr('data-quality', quality);
 }
 
-function editButton ()
+// function editButton() {
+//   $('#edit-button').click(function(e) {
+//     debugger
+//   })
+// }
 
 function updateTitle() {
   $('#idea-info').delegate('.idea-title', 'keyup', function (event) {
