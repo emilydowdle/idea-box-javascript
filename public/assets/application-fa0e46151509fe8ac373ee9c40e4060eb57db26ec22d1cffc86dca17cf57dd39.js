@@ -12373,7 +12373,7 @@ function renderIdea(idea) {
 }
 
 function fetchIdeas() {
-  var ideaUri = 'http://localhost:3000/api/v1/ideas'
+  var ideaUri = '/api/v1/ideas'
 
   $.getJSON(ideaUri, function(data) {
     $('#idea-info').html('');
@@ -12406,7 +12406,7 @@ function createIdea() {
 
     $.ajax({
       type:    "POST",
-      url:     "http://localhost:3000/api/v1/ideas",
+      url:     "/api/v1/ideas",
       data:    ideaParams,
       success: function(newIdea) {
         renderIdea(newIdea)
@@ -12427,7 +12427,7 @@ function deleteIdea() {
 
     $.ajax({
       type: 'DELETE',
-      url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
       success: function() {
         $idea.remove()
       },
@@ -12453,7 +12453,7 @@ function increaseQuality() {
 
     $.ajax({
       type: 'PUT',
-      url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
       data:    ideaParams,
       success: function(updatedIdea) {
         updateQuality($idea, updatedIdea.quality)
@@ -12480,7 +12480,7 @@ function decreaseQuality() {
 
     $.ajax({
       type: 'PUT',
-      url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
       data:    ideaParams,
       success: function(updatedIdea) {
         updateQuality($idea, updatedIdea.quality)
@@ -12515,7 +12515,7 @@ function updateTitle() {
 
       $.ajax({
         type: 'PUT',
-        url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+        url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
         data: ideaParams,
         success: function(updatedIdea) {
           $(event.target).blur();
@@ -12547,7 +12547,7 @@ function updateBody() {
 
     $.ajax({
       type: 'PUT',
-      url: "http://localhost:3000/api/v1/ideas/" + $idea.attr('data-id') + "",
+      url: "/api/v1/ideas/" + $idea.attr('data-id') + "",
       data: ideaParams,
       success: function(updatedIdea) {
         $(event.target).blur();
