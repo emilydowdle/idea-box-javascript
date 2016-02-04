@@ -227,21 +227,4 @@ function ideaFilter () {
       }
     })
   })
-  // data-username="<%= user.username %>">
-
-  // $('#idea_filter_title').keyup('change', function () {
-  //   debugger
-  //   var currentDrug = this.value;
-  //   $drugs.each(function (index, drug) {
-  //     $drug = $(drug);
-  //     $drugName = $(drug).children('h5');
-  //     if ($drugName.data('name').includes(currentDrug)) {
-  //       $drug.show();
-  //     }
-  //     else {
-  //       $drug.hide();
-  //     }
-  //   });
-  // });
-
 }
